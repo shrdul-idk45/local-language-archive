@@ -1,0 +1,187 @@
+/* frontend/src/index.css */
+
+/* ---- Fonts ---- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --radius: 0.75rem;
+}
+
+/* base typography */
+html, body {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tailwind directives MUST stay near the top */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Global background (your map image + vignette) ---- */
+body {
+  background-image: url('/bg.jpg');   /* your file */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: rgba(0,0,0,0.15);
+  background-blend-mode: multiply;
+}
+
+/* soft dark corners */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top left, rgba(15,23,42,0.6), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(15,23,42,0.6), transparent 55%);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+
+.dark body::before {
+  opacity: 1;
+}
+
+/* ---- Main glass container that holds the app ---- */
+.app-inner {
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 28px;
+  border-radius: 32px;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.96), rgba(248,250,252,0.9));
+  backdrop-filter: blur(18px) saturate(120%);
+  box-shadow: 0 30px 80px rgba(15,23,42,0.45);
+}
+
+/* dark theme container */
+.dark .app-inner {
+  background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(15,23,42,0.94));
+  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+  color: #e5e7eb;
+}
+
+/* ---- Cards (header, form, entry) ---- */
+.header-card,
+.form-card,
+.entry-card {
+  border-radius: 24px;
+  border: 1px solid rgba(148,163,184,0.35);
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 18px 45px rgba(15,23,42,0.12);
+}
+
+.header-card {
+  @apply px-5 py-3 mb-4 flex items-center gap-3;
+}
+
+.form-card {
+  @apply px-5 md:px-7 py-5 mb-6;
+}
+
+.entry-card {
+  @apply px-5 py-4;
+}
+
+/* dark variants for cards */
+.dark .header-card,
+.dark .form-card,
+.dark .entry-card {
+  background: rgba(15,23,42,0.96);
+  border-color: rgba(75,85,99,0.8);
+}
+
+/* ---- Inputs & selects ---- */
+.input-hover,
+.select-hover {
+  @apply border border-slate-300 rounded-xl px-3 py-2 text-sm bg-white/95 text-slate-900 outline-none;
+  box-shadow: inset 0 0 0 0 rgba(79,70,229,0.2);
+  transition: all 0.15s ease-out;
+}
+
+.input-hover::placeholder {
+  @apply text-slate-400;
+}
+
+.input-hover:focus,
+.select-hover:focus {
+  border-color: rgb(79 70 229);
+  box-shadow:
+    inset 0 0 0 1px rgba(79,70,229,0.45),
+    0 0 0 1px rgba(79,70,229,0.18);
+}
+
+/* dark inputs */
+.dark .input-hover,
+.dark .select-hover {
+  @apply bg-slate-900/80 border-slate-600 text-slate-100;
+}
+
+.dark .input-hover::placeholder {
+  @apply text-slate-500;
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: white;
+  box-shadow: 0 10px 30px rgba(79,70,229,0.45);
+  transition: transform 0.1s ease-out, box-shadow 0.15s ease-out;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 40px rgba(79,70,229,0.65);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center rounded-xl px-3 py-1.5 text-xs font-medium border border-slate-200 bg-white/80 text-slate-800;
+  transition: background-color 0.15s ease-out, transform 0.1s ease-out;
+}
+
+.btn-ghost:hover {
+  background: rgba(226,232,240,0.95);
+  transform: translateY(-0.5px);
+}
+
+/* dark ghost buttons */
+.dark .btn-ghost {
+  @apply border-slate-600 bg-slate-900/80 text-slate-100;
+}
+
+.dark .btn-ghost:hover {
+  background: rgba(55,65,81,0.95);
+}
+
+/* ---- Tags ---- */
+.tag {
+  @apply inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-medium text-slate-700 bg-indigo-50/90 border border-indigo-100;
+}
+
+.dark .tag {
+  @apply text-indigo-100 bg-indigo-500/20 border-indigo-500/40;
+}
+
+/* ---- Banner inner ---- */
+.banner-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  text-align: center;
+}
+
+/* smaller banner text on narrow screens */
+@media (max-width: 768px) {
+  .banner-inner h1 { font-size: 1.6rem; }
+  .banner-inner p  { font-size: 0.9rem; }
+}
